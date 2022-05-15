@@ -1,1 +1,1 @@
-# tech-document
+# 기술 노트
