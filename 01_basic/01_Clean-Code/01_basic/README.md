@@ -41,3 +41,35 @@ public class Sample{
   }
 }
 ```
+## 클래스 이름 : 클래스 이름과 객체 이름은 명사나 명사구가 적합하다. 동사는 사용하지 않는다.
+## 매소드 이름 : 동사나 동사구가 적합하다.
+## 기발한 이름은 피해라. 누구나 알아보기 쉬운 이름을 사용해라
+## 한 개념에 한 단어를 사용해라.
+* 잘못된 코드의 사례
+```C
+@RequireArgsConstructor
+class Business{
+
+   private final CommDao commDao;
+   
+   public void deleteHistory(DeleteVo deleteVo){
+      
+      commDao.selectList("updateHistorySeqNo",deleteVo);
+      
+      commDao.delete("deleteHistory", deleteVo); 
+   }
+}
+```
+* 올바른 코드의 사례
+```C
+@RequireArgsConstructor
+class Business{
+
+   private final CommDao commDao;
+   
+   public void deleteHistory(DeleteVo deleteVo){
+ 
+      commDao.delete("deleteHistory", deleteVo);
+   }
+}
+```
