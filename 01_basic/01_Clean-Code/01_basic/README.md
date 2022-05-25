@@ -101,9 +101,9 @@ class Sample{
         return false;
      }
 }
-```c
-* 정상적인 코드
 ```
+* 정상적인 코드
+```c
   class Sample {
     
     private static final int CHECK_WITH_ONE = 1;
