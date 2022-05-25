@@ -32,7 +32,7 @@
 ## 발음하기 쉬운 이름을 사용해라.
 ## 검색하기 쉬운 이름을 사용해라.
 * 예) 문자로 사용하는 이름과 상수는 텍스트 코드에서 눈에 잘 뛰지 않는다.
-```C
+```c
 public class Sample{
   private final int MAX_CLASSES_PER_STUDENT = 7;
  
@@ -46,7 +46,7 @@ public class Sample{
 ## 기발한 이름은 피해라. 누구나 알아보기 쉬운 이름을 사용해라
 ## 한 개념에 한 단어를 사용해라.
 * 잘못된 코드의 사례
-```C
+```c
 @RequireArgsConstructor
 class Business{
 
@@ -61,7 +61,7 @@ class Business{
 }
 ```
 * 올바른 코드의 사례
-```C
+```c
 @RequireArgsConstructor
 class Business{
 
@@ -79,7 +79,7 @@ if문/ else문/ while문 등에 들어가는 블록은 한줄이어야 한다는
 블록 안에서 호출하는 함수 이름을 적절히 짓는다면, 코드를 이해하기 쉬워진다. 이 말은 중첩 구조가 생길만큼 함수가 커져서는 안된다는 뜻이다.
 당연한 말이지만 함수를 읽고 이해하기 쉬워진다.
 * 잘못된 코드
-```C
+```c
 class Sample{
   
   private static final int CHECK_WITH_ONE = 1;
@@ -101,7 +101,7 @@ class Sample{
         return false;
      }
 }
-```
+```c
 * 정상적인 코드
 ```
   class Sample {
