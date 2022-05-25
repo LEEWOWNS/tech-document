@@ -73,3 +73,58 @@ class Business{
    }
 }
 ```
+
+## 블록과 들여쓰기
+* if문/ else문/ while문 등에 들어가는 블록은 한줄이어야 한다는 의미. 대게 거기서 함수를 호출한다. 그러면 바깥을 감싸는 함수가 작아질 뿐만 아니라,
+  블록 안에서 호출하는 함수 이름을 적절히 짓는다면, 코드를 이해하기 쉬워진다. 이 말은 중첩 구조가 생길만큼 함수가 커져서는 안된다는 뜻이다.
+  당연한 말이지만 함수를 읽고 이해하기 쉬워진다.
+  * 잘못된 코드
+```C
+class Sample{
+  
+  private static final int CHECK_WITH_ONE = 1;
+  private static final int CHECK_WITH_TWO = 2;
+  private static final int CHECK_WITH_THREE = 3;
+  
+  public boolean isVaildNumber(int validNumber){
+     if(CHECK_WITH ONE <= validNumber){
+        if(CHECK_WITH_TWO <= validNumber){
+           if(CHECK_WITH_THREE <= validNumber){
+              return true;
+           }else{
+              return false;
+           }
+        }else{
+           return false;
+        }
+     }else{
+        return false;
+     }
+}
+```
+  * 정상적인 코드
+```c
+  class Sample {
+    
+    private static final int CHECK_WITH_ONE = 1;
+    private static final int CHECK_WITH_TWO = 2;
+    private static final int CHECK_WITH_THREE = 3;
+    
+    public boolean isValidNumber(int validNumber){
+        if(CHECK_WITH_ONE == validNumber) {
+            return true;
+        }
+        
+        if(CHECK_WITH_TWO == validNumber) {
+            return true;
+        }
+        
+        if(CHECK_WITH_THREE == validNumber) {
+            return true;
+        }
+        
+        return false;
+    }
+}
+```
+ 
