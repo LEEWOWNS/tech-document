@@ -153,8 +153,7 @@ class Sample{
   둘 다 하면 혼란을 초래한다.
 
 > CQRS(Command and Query Reponsibillity Segregation)
-> 
-> [CQRS]:(https://justhackem.wordpress.com/2016/09/17/what-is-cqrs/)
+> [CQRS에 대한 이해]:(https://justhackem.wordpress.com/2016/09/17/what-is-cqrs/)
 
 ## 함수당 추상화 수준은 하나로!
 * 함수가 확실히 "한 가지" 작업만 하려면 함수 내 모든 문장의 추상화 수준이 동일해야 한다.
