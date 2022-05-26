@@ -153,5 +153,59 @@ class Sample{
   둘 다 하면 혼란을 초래한다.
 
 > CQRS(Command and Query Reponsibillity Segregation)
- <https://justhackem.wordpress.com/2016/09/17/what-is-cqrs/>
+> <https://justhackem.wordpress.com/2016/09/17/what-is-cqrs/>
+
+## 함수당 추상화 수준은 하나로!
+* 함수가 확실히 "한 가지" 작업만 하려면 함수 내 모든 문장의 추상화 수준이 동일해야 한다.
+  한 함수 내에서 추상화 수준을 섞으면 코드를 읽는 사람이 헷갈린다.
+  근본 개념과 세부사항을 뒤섞기 시작하면, 깨어진 창문처럼 사람들이 함수에 세부사항을 점점 더 추가한다.
+  
+## 위에서 아래로 코드 읽기 - 내려가기 규칙
+* 코드는 위에서 아래로 이야기처럼 읽혀야 좋다. 
+  한 함수 다음에는 추상화 수준이 한 단계 낮은 함수가 온다.
+  즉, 위에서 아래로 프로그램을 읽으면 함수 추상화 수준이 한 번에 한 단계씩 낮아진다.
+  이것을 내려가기 규칙이라고 한다.
+```java
+class sample{
+  @Test
+  @DisplayName("위에서 아래로 코드 읽기")
+  public void sampleCode(){
+     //given
+     given();
+    
+     //when
+     when();
+    
+     //then
+     then();
+  }
+  
+  private void given(){
+    given();
+  }
+  
+  private void when(){
+    when();
+  }
+  
+  private void then(){
+    then();
+  }
+  
+}
+```
+
+## 함수 인수
+* 함수에서 이상적인 인수 개수는 0개(무항)이다. 다음은 1개(단항)이고, 다음은 2개(이항)이다. 3개(삼항)은 가능한 피하는게 좋다.
+  최선은 입력 인수가 없는 경우이며, 차선은 입력 인수가 1개 뿐인 경우다. 
+  SetupTeardownInclude.render(pageData)는 이해하기 쉽다.
+  pageData 객체 내용을 랜더링 하겠다는 뜻이다.
+  인수가 2~3개가 필요하면 일부를 독자적인 클래스 변수라 선언할 가능성을 짚어본다.
+  
+## 주석은 나쁜 코드를 보완하지 못한다.
+* 코드로 의도를 표현하라!
+
+## Switch문
+* switch 문은 다형적 객체를 생성하는 코드 안에서 단 한 번만 참아 줄 수 있다.
+
 
