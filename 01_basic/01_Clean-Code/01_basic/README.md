@@ -153,6 +153,7 @@ class Sample{
   둘 다 하면 혼란을 초래한다.
 
 > CQRS(Command and Query Reponsibillity Segregation)
+> 
 > CQRS에 대한 이해
 > <https://justhackem.wordpress.com/2016/09/17/what-is-cqrs/>
 
