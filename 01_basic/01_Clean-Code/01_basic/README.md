@@ -340,5 +340,154 @@ class Sample {
   }
 }
 ```
+## 코드의 형식
+- 적절한 행 길이를 유지해라.
+- 신문 기사처럼 작성해라.
+- 개념은 빈 행으로 분리해라.
+- 세로 밀집도
+- 변수 선언
+  - 변수는 사용하는 위치에 최대한 가까이 선언한다.
+  - 우리가 만든 함수는 매우 짧으므로 지역 변수는 각 함수 맨 처음에 선언한다.
+- 인스턴스 변수
+  - 인스턴스 변수는 클래스 맨 처음에 선언한다. 변수 간에 세로로 거리를 두지 않는다.
+  - 잘 설계한 클래스는 많은 클래스 메소드가 인스턴스 변수를 사용하기 때문이다.
+- 종속 함수
+  - 한 함수가 다른 함수를 호출한다면 두 함수는 세로로 가까이 배치한다.
+  - 또한 가능하다면 호출하는 함수를 호출되는 함수보다 먼저 배치한다.
+  - 그러면 프로그램이 자연스러워 읽힌다.
+- 세로 순서
+  - 일반적으로 함수 호출 종속성은 아래 방향으로 유지한다.
+  - 다시 말해, 호출되는 함수를 호출하는 함수보다 나중에 배치한다.
+  - 그러면 소스 코드 모듈이 고차원에서 저차원으로 자연스럽게 내려간다.
+- 가로 형식 맞추기
+  - 한 행은 가로로 얼마나 길어야 적당할까? 한 행에 글자수는 120자 이하가 적합하다.
+- 들여쓰기
+- 소스 파일은 윤곽도와 계층이 비슷하다.
+  - 파일 전체에 적용되는 정보가 있고, 파일 내 개별 클래스에 적용되는 정보가 있다.
+  - 클래스 내 각 메소드에 적용되는 정보가 있고, 블록 내 블록에 재귀적으로 적용되는 정보가 있다.
+  - 계층에서 각 수준은 일므을 선언하는 범위이자 선언문과 실행문을 해석하는 범위이다.
 
+## 올바르게 작성된 코드
+```java
+import javax.naming.directory.Attributes;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+
+public class CodeAnalyzer implements JavaFileAnalysis {
+  private int lineCount;
+  private int maxLineWidth;
+  private int widestLineNumber;
+  private LineWidthHistogram lineWidthHistogram;
+  private int totalChars;
+
+  public CodeAnalyzer() {
+    lineWidthHistogram = new LineWidthHistogram();
+  }
+
+  public static List<File> findJavaFiles(File parentDirectory) {
+    List<File> files = new ArrayList<File>();
+    findJavaFiles(parentDirectory, files);
+    return files;
+  }
+
+  private static void findJavaFiles(File parentDirectory, List<File> files) {
+    for (File file : parentDirectory.listFiles()) {
+      if (file.getName().endsWith(".java"))
+        files.add(file);
+      else if (file.isDirectory())
+        findJavaFiles(file, files);
+    }
+  }
+
+  public void analyzeFile(File javaFile) throws Exception {
+    BufferedReader br = new BufferedReader(new FileReader(javaFile));
+    String line;
+    while ((line = br.readLine()) != null)
+      measureLine(line);
+  }
+
+  private void measureLine(String line) {
+    lineCount++;
+    int lineSize = line.length();
+    totalChars += lineSize;
+    lineWidthHistogram.addLine(lineSize, lineCount);
+    recordWidestLine(lineSize);
+  }
+
+  private void recordWidestLine(int lineSize) {
+    if (lineSize > maxLineWidth) {
+      maxLineWidth = lineSize;
+      widestLineNumber = lineCount;
+    }
+  }
+
+  public int getLineCount() {
+    return lineCount;
+  }
+
+  public int getMaxLineWidth() {
+    return maxLineWidth;
+  }
+
+  public int getWidestLineNumber() {
+    return widestLineNumber;
+  }
+
+  public LineWidthHistogram getLineWidthHistogram() {
+    return lineWidthHistogram;
+  }
+
+  public double getMeanLineWidth() {
+    return (double) totalChars / lineCount;
+  }
+
+  public int getMedianLineWidth() {
+    Integer[] sortedWidths = getSortedWidths();
+    int cumulativeLineCount = 0;
+    for (int width : sortedWidths) {
+      cumulativeLineCount += lineCountForWidth(width);
+      if (cumulativeLineCount > lineCount / 2)
+        return width;
+    }
+    throw new Error("Cannot get here");
+  }
+
+  private int lineCountForWidth(int width) {
+    return lineWidthHistogram.getLinesForWidth(width).size();
+  }
+
+  private Integer[] getSortedWidths() {
+    Set<Integer> widths = lineWidthHistogram.getWidths();
+    Integer[] sortedWidths = (widths.toArray(new Integer[0]));
+    Arrays.sort(sortedWidths);
+    return sortedWidths;
+  }
+}
+
+
+interface JavaFileAnalysis {
+
+}
+
+class LineWidthHistogram {
+  public void addLine(int lineSize, int lineCount) {
+    //TODO: 추후 작성 
+  }
+
+  public Attributes getLinesForWidth(int width) {
+    return null;  //TODO: 추후 작성 
+  }
+
+  public Set<Integer> getWidths() {
+    return null;  //TODO: 추후 작성 
+  }
+}
+```
+ > 다형성 : 다형성이란? 생물 같은 종의 생물이면서도 어떤 형태나 형질이 다양하게 나타나는 현상
+ >          예를 들면 함수에ㅔ 따라 크기, 형태, 색깔 따위가 차이나는 것이다.
 
