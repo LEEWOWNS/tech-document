@@ -209,5 +209,135 @@ class sample{
 
 ## Switch문
 * switch 문은 다형적 객체를 생성하는 코드 안에서 단 한 번만 참아 줄 수 있다.
+```java
+public abstract class Employee {
+  public abstract boolean isPayday();
 
+  public abstract Money calculatePay();
+
+  public abstract void deliveryPay(Money pay);
+}
+
+public interface EmployeeFactory {
+  public Employee makeEmployee(EmployeeRecord r) throws InvalidEmployeeType;
+}
+
+public class EmployeeFactoryImpl implements EmployeeFactory {
+  public Employee makeEmployee(EmployRecord employRecord) throws InvalidEmployeeType {
+    return switch (employRecord.type) {
+      case COMMISSIONED -> new CommissionEmployee(employRecord);
+      case HOURLY -> new HourlyEmployee(employRecord);
+      case SALARIED -> new SalariedEmployee(employRecord);
+      default -> throw new InvalidEmployeeType(employRecord.type);
+    };
+  }
+}
+```
+## 생성자(Constructor)를 중복 정의할 때 정적 팩토리 매소드를 사용한다.
+- 정적팰토리 메소드를 사용하면, 생성자에 비해서 가독성이 높아진다.
+```java
+public class WarpCharacter {
+    public static Airship InterceptorWarp(Map mapObj , int xPosition, int yPosition){
+        return new Interceptor();
+    }
+
+    public static Airship ScouterWarp(Map mapObj , int xPosition, int yPosition) {
+        return new Scouter();
+    }
+
+    public static Airship ArbiterWarp(Map mapObj , int xPosition, int yPosition){
+        return new Arbiter();
+    }
+}   
+```
+- 정적 팩토리 메소드를 사용하면, 다형성의 원칙에 따라 하위 자료형을 사용하게 만들 수 있다.
+```java
+public interface Airship {
+    public void Attack();
+
+    public void Retreat();
+
+    public void Destroy();
+}
+
+public class Arbiter implements Airship {
+    public void Attack() {}
+
+    public void Retreat() {}
+
+    public void Destroy() {}
+}
+
+public class Interceptor implements Airship {
+  public void Attack() {}
+
+  public void Retreat() {}
+
+  public void Destroy() {}
+}
+
+public class Scouter implements Airship {
+  public void Attack() {}
+
+  public void Retreat() {}
+
+  public void Destroy() {}
+}
+
+public class WarpCharacter {
+    public static Airship InterceptorWarp(Map mapObj , int xPosition, int yPosition){
+        return new Interceptor();
+    }
+
+    public static Airship ScouterWarp(Map mapObj , int xPosition, int yPosition) {
+        return new Scouter();
+    }
+
+    public static Airship ArbiterWarp(Map mapObj , int xPosition, int yPosition){
+        return new Arbiter();
+    }
+}
+
+public class Battle {
+
+  public static void main(String[] args) {
+
+    Map map = new Map();
+
+    Airship arbiter1 =  WarpCharacter.ArbiterWarp(map, 10, 60);
+
+    Airship interceptor1 = WarpCharacter.InterceptorWarp(map, 60, 800);
+
+    Airship scouter1 = WarpCharacter.ScouterWarp(map, 300, 1024);
+
+    arbiter1.Attack();
+
+    interceptor1.Attack();
+
+    scouter1.Attack();
+  }
+}
+```
+- 정적 팩토리 메소드를 사용하면, 다형성의 원칙에 따라 하위 자료형을 사용하게 만들 수 있다.
+
+```java
+class Sample {
+  public static final BigInteger ZERO = new BigInteger(new int[0], 0);
+
+  private final static int MAX_CONSTANT = 16;
+  private static BigInteger posConst[] = new BigInteger[MAX_CONSTANT + 1];
+  private static BigInteger negConst[] = new BigInteger[MAX_CONSTANT + 1];
+
+  public static BigInteger valueOf(long val) {
+    if (val == 0)
+      return ZERO;
+    if (val > 0 && val <= MAX_CONSTANT)
+      return posConst[(int) val];
+    else if (val < 0 && val >= -MAX_CONSTANT)
+      return negConst[(int) -val];
+
+    return new BigInteger(val);
+  }
+}
+```
 
