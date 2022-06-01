@@ -15,4 +15,4 @@
 ---
 여기서 입출력 모듈이란 CPU와 메모리의 인터페이스이고, 하나 또는 그 이상의 주변 장치에 대한 인터페이스를 의미한다.
 보편적인 입출력 모듈의 모습은 아래와 같다.!
-[IO_Modules](https://user-images.githubusercontent.com/90193329/171390679-3b79c9cf-120b-4d67-9fc1-1ef80920efb8.png)
+![IO_Modules](https://user-images.githubusercontent.com/90193329/171390914-65c9d90b-700c-4768-a47e-9051333d8684.png)
