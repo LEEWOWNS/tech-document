@@ -18,3 +18,17 @@
 
 
 ![IO_Modules](https://user-images.githubusercontent.com/90193329/171390914-65c9d90b-700c-4768-a47e-9051333d8684.png)
+
+각 LINE의 그룹을 BUS라고 한다.
+- Address Lines(Bus)
+  - CPU가 장치를 인식하기 위해서 필수적인 것임. 각 장치에 부여하는 주소는 다 다르다.
+  - 장치를 식별하고 메모리를 CPU와 연결한다. 따라서 Address 버스가 더 많을 수록 더 많은 장치 연결이 가능하단 뜻이다.
+- Data Lines(Bus)
+  - 장치와 CPU가 서로 data를 주고 받기 위한 bus다.
+  - Data Line은 정보를 나른다. CPU의 평균 Data Bus사이즈는 8~64 정도이다. Data Bus는 양방향으로 주고 받는다. 
+    메모리나 장치로부터 데이터를 받아야하기 때문이다.
+- Control Lines(Bus)
+  - 각 디바이스에서 읽거나 쓰라는 신호를 보낸다. 
+  
+  
+  ![IO_Process](https://user-images.githubusercontent.com/90193329/171624092-675646ad-b7ab-4490-aa31-bc15628f9763.png)
