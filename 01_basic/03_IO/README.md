@@ -69,6 +69,9 @@ CPU의 대기를 극복하기 위해 나온 방식으로 장치를 확인하기 
 
 ![Input_Stream](https://user-images.githubusercontent.com/90193329/171967587-da793ddb-14ce-44a2-a297-4f913f3de4d0.gif)
 
+= Reading information into a program
 
 ![output_stream](https://user-images.githubusercontent.com/90193329/171967751-5cad5e9d-d46d-4fae-ac09-a941f435590d.png)
+
+= Writing information into a program
 
