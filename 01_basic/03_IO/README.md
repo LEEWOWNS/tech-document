@@ -256,10 +256,10 @@ Non-Blocking Model 이란 I/O 작업이 진행되는 동안 유저 프로세스�
 비동기(Asynchronous) 이란 I/O 작업이 진행되는 동안 유저 프로세스는 관심이 없다. 그저 자신의 일을 하다가 이벤트 핸들러에 의해 알림(notify)이 오면 처리하는 방식이다.
 
 ## 특징 비교
-|구분|IO|NIO|
+| 구분 | IO | NIO |
 |:---|:---|:---|
-|입출력 방식|스트림 방식|채널 방식|
-|버퍼 방식|넌 버퍼| 버퍼|
-|비동기 방식| 지원안함 | 지원 |
-|Blocking / Non-Blocking 방식 | Blocking 방식만 지원 | Blocking / Non=Blocking 방식 모두 지원 |
+| 입출력 방식 |스트림 방식 | 채널 방식 |
+| 버퍼 방식 | 넌 버퍼| 버퍼 |
+| 비동기 방식 | 지원안함 | 지원 |
+| Blocking / Non-Blocking 방식 | Blocking 방식만 지원 | Blocking / Non=Blocking 방식 모두 지원 |
 
