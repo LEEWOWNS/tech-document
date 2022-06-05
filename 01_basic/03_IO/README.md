@@ -121,4 +121,141 @@ Channel에서 데이터를 읽으면 Buffer에 담아야만 어떤 처리를 할
 Channel은 Non-Blocking 방식도 가능하다. 다시 말하지만, Channel을 사용하는 I/O는 언제나 Non-Blocking 방식으로 동작하는 것이 아니라, Non-Blocking 방식도 가능하다는 것이다.
 
 
+# InputStream/OutPutStream
 
+## InputStream
+- read - byte[]를 통해서 값을 읽어오며, 반환 값은 현재 값의 위치를 반환한다. 더 이상 읽을 수 있는 위치가 아닐 경우 -1을 반환한다.
+  - abstract int read() - InputStream에서 한 바이트 읽어서 int 값을 반환한다. 
+  - int read(byte[] b) - byte[] b 만큼의 데이터를 읽어서 b에 저장하고 읽은 바이트 수를 반환한다.
+  - int read(byte{}, int off, int len) - len 만큼 읽어서 byte[] b의 off 위치에 저장하고 읽은 바이트 수를 반환한다.
+
+```java
+private static void basicReadByte(InputStream inputStream) throws IOException{
+    int readInt;
+    while((readInt = inputStream.read(readByte)) != -1 {
+        String value = new Strin(readByte);
+        
+        System.out.println(value);
+    }
+}
+```
+
+- mark, reset - 구현체에 따라서 mark와 reset을 지원한다. markSupported()는 mark 지원 여부를 반환한다.
+
+```java
+private static void basicMarkReset(InputStream inputStream) throws IOException {
+    int readInt;
+    inputStream.mark(1000);
+    while ((readInt = inputStream.read(readByte)) != -1){
+        String value = new String(readByte);
+
+        System.out.print(value);
+    }
+    inputStream.reset();
+}
+```
+
+- available - 해당 InputStream의 읽을 수 있는 길이를 반환한다.
+
+```java
+ private static void basicAvailable(InputStream inputStream) {
+      try {
+          int available = inputStream.available();
+
+          System.out.println("available = " + available);
+      } catch (Exception exception) {
+          exception.printStackTrace();
+      }
+}
+
+```
+
+- skip - 해당 InputStream의 위치를 건너뛸 수 있다.
+
+```java
+private static void basicSkip(InputStream inputStream) {
+    try {
+        inputStream.skip(1000);
+    } catch (Exception exception) {
+        exception.printStackTrace();
+    }
+}
+```
+
+- close - 현재 열려있는 Input Stream을 닫는다.
+
+## OutputStream
+
+OutputStream은 바이트 기반의 출력 스트림의 최상위 클래스로 추상 클래스다. 모든 바이트 기반 출력 클래스는 이 클래스를 상속 받아서 만들어진다.
+
+```java
+OutputStream outputStream = null;
+try {
+      outputStream = new FileOutputStream("D:\\GIT\\templates_for_all\\01_java\\java_stream\\rc4.log");
+
+    String content = "Value";
+
+    outputStream.write(content.getBytes(StandardCharsets.UTF_8));
+
+    outputStream.close();
+} catch (Exception exception) {
+    exception.printStackTrace();
+}finally {
+    if (outputStream != null) {
+        try {
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+```
+
+# 바이트 / 문자 스트림
+
+## 바이트 스트림
+- FileInputStream / FileOutputStream
+- ByteArrayInputStream / ByteArrayOutputStream
+- PipedInputStream / PipedOutputStream
+- AudioInputStream / AudioOutputStream
+
+## 바이트 보조 스트림
+- FileInputStream / FileOutputStream
+- BufferedInputStream / BufferedOutputStream
+- DataInputStream / DataOutputStream
+- SequenceInputStream
+- LineNumberInputStream
+- ObjectInputStream / ObjectOutputStream
+- PrintStream
+- PushbackInputStream
+
+## 문자스트림
+- FileReader / FileWriter
+- CharArrayReader / CharArrayWriter
+- PipedReader / PipedWriter
+- StringReader / StringWriter
+
+## 문자 보조 스트림
+- FilterReader / FilterWriter
+- BufferedReader / BufferedWriter
+- LineNumberReader
+- PrintWriter
+- PushBackReader
+
+# NIO
+
+JDK4부터 java.io 패키지의 성능을 보강하기 위해 java.nio 패키지가 추가되었다.
+그리고 뒤 이어서, JDK7 부터는 NIO.2 API가 java.nio.file 에 묶여서 추가되었다.
+
+Java NIO는 New Input/Output 약자로 채널(Channel)이 양방향 버퍼를 통해 외부 데이터와 통신한다.
+즉, NIO는 IO와 달리 읽기/쓰기를 하나의 통로로 해결한다.
+
+NIO의 가장 큰 특징으로 비동기 / Non-Blocking 방식을 지원
+Non-Blocking Model 이란 I/O 작업이 진행되는 동안 유저 프로세스의 작업을 중단시키지 않는 방식이다.
+비동기(Asynchronous) 이란 I/O 작업이 진행되는 동안 유저 프로세스는 관심이 없다. 그저 자신의 일을 하다가 이벤트 핸들러에 의해 알림(notify)이 오면 처리하는 방식이다.
+
+## 특징 비교
+|구분|내용|설명|
+|:---|:---|:---:|
+|
