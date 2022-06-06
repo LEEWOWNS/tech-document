@@ -407,7 +407,7 @@ public static String tryCatchResource(String url) throws IOException {
 
 
 
-> [참조 : ](https://www.slideshare.net/kslisenko/networking-in-java-with-nio-and-netty-76583794)
+> [참조 : ]:(https://www.slideshare.net/kslisenko/networking-in-java-with-nio-and-netty-76583794)
 >
 
 
