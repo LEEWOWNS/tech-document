@@ -263,3 +263,152 @@ Non-Blocking Model 이란 I/O 작업이 진행되는 동안 유저 프로세스�
 | 비동기 방식 | 지원안함 | 지원 |
 | Blocking / Non-Blocking 방식 | Blocking 방식만 지원 | Blocking / Non-Blocking 방식 모두 지원 |
 
+## Paths / Files
+```java
+package bong.lines;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+public class FilesBasic {
+    public static void main(String[] args) throws Exception {
+        Path fp = Paths.get("C:\\Temp\\rc5.log");
+
+        fp = Files.createFile(fp);
+
+        Path dp1 = Paths.get("C:\\Temp\\sample");
+
+        dp1 = Files.createDirectory(dp1);
+
+        Path dp2 = Paths.get("C:\\Temp\\sample2");
+
+        dp2 = Files.createDirectory(dp2);
+    }
+}
+
+```
+
+## Write String with Files
+
+```java
+private static void writeStringToFileWithFiles() throws IOException {
+  Path path = Paths.get("C:\\Temp\\rc5.log");
+
+  String value1 = "Test Code1";
+  String value2 = "Test Code2";
+  String value3 = "Test Code3";
+
+  List<String> list = Arrays.asList(value1, value2, value3);
+
+  Files.write(path, list);
+
+  List<String> findList = Files.readAllLines(path);
+
+  System.out.println("findList = " + findList);
+}
+
+```
+
+## Read All String with Files
+
+```java
+private static void readAllStringWithFiles() {
+    String path = "C:\\Temp\\rc5.log";
+
+    try (BufferedReader bufferedReader = Files.newBufferedReader(Paths.get(path), StandardCharsets.UTF_8)) {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        String string = null;
+        while ((string = bufferedReader.readLine()) != null) {
+            stringBuilder.append(string).append("\n");
+        }
+        System.out.println("stringBuilder = " + stringBuilder);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+
+```
+
+- Read All String with Files Lines
+
+```java
+
+private static void readAllStringWithFilesLines() {
+  String path = "C:\\Temp\\rc5.log";
+
+  try (Stream<String> lines = Files.lines(Paths.get(path), StandardCharsets.UTF_8) ) {
+
+      StringBuilder stringBuilder = new StringBuilder();
+      lines.forEach(s -> stringBuilder.append(s).append("\n"));
+      System.out.println("stringBuilder = " + stringBuilder);
+  } catch (Exception exception) {
+      exception.printStackTrace();
+  }
+}
+```
+
+- Write Strign with Files
+
+```java
+private static void writeStringToFileWithFilesSecondWay() throws IOException {
+    String path = "C:\\Temp\\rc5.log";
+
+    Files.writeString(Paths.get(path), "안녕하세요", StandardCharsets.UTF_8);
+}
+
+```
+
+- Search fiels in Directory
+
+```java
+private static void fileSearchInDirectory() {
+    String directoryPath = "D:\\GIT\\noticeboard_backend";
+
+    List<Path> list = Collections.emptyList();
+
+    try (Stream<Path> walk = Files.walk(Paths.get(directoryPath))) {
+
+        list = walk.filter(Files::isReadable)
+                .collect(Collectors.toList());
+
+    } catch (Exception exception) {
+        exception.printStackTrace();
+    }
+
+    list.forEach(System.out::println);
+}
+
+```
+
+## try-with-resource
+- Try-with-resource는 아래의 코드와 같이 try에 자원 객체를 전달하면, try 코드 블록이 끝나면 자동으로 자원을 종료해주는 기능이다.
+
+```java
+
+public static String tryCatchResource(String url) throws IOException {
+    URL targetUrl = new URL(url);
+    try (BufferedReader reader = new BufferedReader(new InputStreamReader(targetUrl.openStream()))){
+        StringBuffer html = new StringBuffer();
+        String tmp;
+
+        while ((tmp = reader.readLine()) != null) {
+            html.append(tmp);
+        }
+        return html.toString();
+    }
+}
+```
+
+# NIO with Server
+
+![nio_process](https://user-images.githubusercontent.com/90193329/172104871-c3381ee4-3849-4f65-a293-3b589afcb70d.png)
+
+
+
+> [참조](https://www.slideshare.net/kslisenko/networking-in-java-with-nio-and-netty-76583794)
+>
+
+
+
